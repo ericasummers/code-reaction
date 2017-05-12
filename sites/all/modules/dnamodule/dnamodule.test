@@ -1,0 +1,27 @@
+<?php
+  /**
+  * @file
+  * Functional tests for the DNA module.
+  */
+  class DnamoduleTests extends DrupalWebTestCase {
+
+    public static function getInfo() {
+      return array(
+      'name' => 'DNA Module Tests',
+      'description' => 'Tests the DNA module.',
+      'group' => 'Custom Modules Tests',
+      );
+    }
+
+    public function setUp() {
+        parent::setUp(array('dnamodule'));
+    }
+
+    public function testDnamoduleNavigation() {
+        // Navigate to the URL created by the DNA module.
+        $this->drupalGet('dna-match');
+        $this->assertText('Find the complement to any DNA string', 'The text on the page is correct.');
+    }
+
+
+  }

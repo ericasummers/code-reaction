@@ -1,5 +1,5 @@
 name = Pun Module Ajax Loader
-description = Display science puns on welcome homepage with Ajax.
+description = Display science puns on puns page with Ajax.
 package = Custom Modules
 core = 7.x
 files[] = punmodule.module

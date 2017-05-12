@@ -1,0 +1,7 @@
+name = Dnamodule
+description = A module that allows a user to enter a DNA string and will generate the complement pair string.
+package = Custom Modules
+core = 7.x
+files[] = dnamodule.module
+files[] = dnamodule.test
+dependencies[] = simpletest

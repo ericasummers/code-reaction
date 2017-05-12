@@ -1,0 +1,14 @@
+<?php
+  function dnamodule_menu() {
+    $items['dna-match'] = array(
+      'title' => 'DNA Complement Generator',
+      'page callback' => 'dnapair',
+      'access callback' => TRUE,
+      'type' => MENU_NORMAL_ITEM,
+    );
+    return $items;
+  }
+
+  function dnapair() {
+    return "<p>Find the complement to any DNA string</p>";
+  }
