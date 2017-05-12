@@ -1,7 +1,6 @@
-<? php
-
+<?php
   function punmodule_menu() {
-      $items['path-to-ajax/%/%'] = array(
+      $items['puns/%/%'] = array(
               'access arguments' => array('access content'),
               'page callback' => 'punmodule_ajax_callback',
               'page arguments' => array(1,2),
