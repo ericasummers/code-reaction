@@ -2,13 +2,48 @@
   function dnamodule_menu() {
     $items['dna-match'] = array(
       'title' => 'DNA Complement Generator',
-      'page callback' => 'dnapair',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('dnapair'),
       'access callback' => TRUE,
       'type' => MENU_NORMAL_ITEM,
+    );
+    $items['results'] = array(
+      'title' => 'DNA Pair Results',
+      'page callback' => 'dna_results',
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
     );
     return $items;
   }
 
   function dnapair() {
-    return "<p>Find the complement to any DNA string</p>";
+    $form['input'] = array(
+      '#title' => 'Find the complement to any DNA string. Enter a string of DNA below:',
+      '#type' => 'textfield',
+      '#element_validate' => array('element_validate_dna'),
+      '#required' => TRUE,
+    );
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' => 'Find my complement!',
+    );
+    return $form;
+  }
+
+  function element_validate_dna($element) {
+    $input = strtoupper($element['#value']);
+    $unaccepted = ['B', 'D', 'E', 'F', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+    foreach($unaccepted as $badletter) {
+      if (strpos($input, $badletter) !== FALSE) {
+        form_error($element, t('Please enter a valid DNA string, with only the letters G, A, T, and C in sequence.'));
+      }
+    }
+  }
+
+  function dnapair_submit(&$form, &$formstate) {
+    drupal_goto('results');
+  }
+
+  function dna_results() {
+    return '<p>Success</p>';
   }
