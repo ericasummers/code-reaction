@@ -25,7 +25,7 @@
     );
     $form['submit'] = array(
       '#type' => 'submit',
-      '#value' => 'Find my complement!',
+      '#value' => t('Find my complement!'),
     );
     return $form;
   }

@@ -7,20 +7,32 @@
 
     public static function getInfo() {
       return array(
-      'name' => 'Dnamodule Tests',
+      'name' => 'DNA Module Page Load Test',
       'description' => 'Tests the DNA module.',
       'group' => 'Custom Modules Tests',
       );
     }
 
     public function setUp() {
-        parent::setUp(array('dnamodule'));
+      parent::setUp(array('dnamodule'));
     }
 
     public function testDnamoduleNavigation() {
-        $this->drupalGet('dna-match');
-        $this->assertText('Find the complement to any DNA string', 'The text on the page is correct.');
+      $this->drupalGet('dna-match');
+      $this->assertText('Find the complement to any DNA string', 'The text on the page is correct.');
     }
 
+    public function testDnamoduleForm() {
+      $input = ['input' => 'ABCD'];
+      $this->drupalPost('dna-match', $input, t('Find my complement!'));
+      $this->assertText('Please enter a valid DNA string, with only the letters G, A, T, and C in sequence.', 'The form validates correctly for non-AGCT letters.');
+    }
+
+    // public function testDnamoduleUnitTest() {
+    //   $input = 'agtc';
+    //   $result = 'TCAG';
+    //   $this->drupalGet('results');
+    //   $this->assertText($result, 'The form outputs the correct result.');
+    // }
 
   }
