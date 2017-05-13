@@ -3,7 +3,7 @@
     $items['dna-match'] = array(
       'title' => 'DNA Complement Generator',
       'page callback' => 'drupal_get_form',
-      'page arguments' => array('dnapair'),
+      'page arguments' => array('dnapair_form'),
       'access callback' => TRUE,
       'type' => MENU_NORMAL_ITEM,
     );
@@ -16,7 +16,7 @@
     return $items;
   }
 
-  function dnapair() {
+  function dnapair_form() {
     $form['input'] = array(
       '#title' => 'Find the complement to any DNA string. Enter a string of DNA below:',
       '#type' => 'textfield',
@@ -32,6 +32,7 @@
 
   function element_validate_dna($element) {
     $input = strtoupper($element['#value']);
+    $_SESSION['input'] = $input;
     $unaccepted = ['B', 'D', 'E', 'F', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'U', 'V', 'W', 'X', 'Y', 'Z'];
     foreach($unaccepted as $badletter) {
       if (strpos($input, $badletter) !== FALSE) {
@@ -40,10 +41,25 @@
     }
   }
 
-  function dnapair_submit(&$form, &$formstate) {
+  function dnapair_form_submit(&$form, &$form_state) {
+    $dnastring = strtoupper($form_state['values']['input']);
+    $dna_array = str_split($dnastring);
+    $output = array();
+    for ($i = 0; $i < count($dna_array); $i++) {
+      if ($dna_array[$i] == 'A') {
+        array_push($output, 'T');
+      } else if ($dna_array[$i] == 'C') {
+        array_push($output, 'G');
+      } else if ($dna_array[$i] == 'G') {
+        array_push($output, 'C');
+      } else if ($dna_array[$i] == 'T') {
+        array_push($output, 'A');
+      }
+    }
+    $_SESSION['output'] = implode($output);
     drupal_goto('results');
   }
 
   function dna_results() {
-    return '<p>Success</p>';
+    return '<p>Success! You submitted: ' . $_SESSION['input'] . ' and the complement DNA string output for that is: ' . $_SESSION['output'] . '</p>';
   }
