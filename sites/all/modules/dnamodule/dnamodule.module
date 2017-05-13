@@ -33,7 +33,7 @@
   function element_validate_dna($element) {
     $input = strtoupper($element['#value']);
     $_SESSION['input'] = $input;
-    $unaccepted = ['B', 'D', 'E', 'F', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+    $unaccepted = ['B', 'D', 'E', 'F', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '"', "'", '.', ',', '!', "?", "(", ")", "-", ' '];
     foreach($unaccepted as $badletter) {
       if (strpos($input, $badletter) !== FALSE) {
         form_error($element, t('Please enter a valid DNA string, with only the letters G, A, T, and C in sequence.'));
